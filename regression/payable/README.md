@@ -1,7 +1,7 @@
 # Payable
 
 ## Specification
-The contract transfer a specific amount of ether only if its balance is equal to another specified value.
+The contract transfers a specific amount of ether only if its balance is equal to another specified value.
 
 ## Properties
 - **g-check-balance**: checks that the function `g()` transfers the correct amount of ether
