@@ -1,1 +1,0 @@
-The `f` function performs an external call. `s` is a view function, which means it cannot modify x value.
