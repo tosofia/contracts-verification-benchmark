@@ -1,1 +1,0 @@
-The `f` function performs an external call. The `s` function modifies x value to a given value.
