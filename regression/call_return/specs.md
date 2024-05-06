@@ -1,1 +1,0 @@
-The contract performs an external call and checks if the call failed or not. The properties should both fail since we cannot know if the call will fail or not.
