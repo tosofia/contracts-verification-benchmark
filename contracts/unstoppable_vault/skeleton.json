@@ -1,0 +1,8 @@
+{
+    "name": "UnstoppableVault",
+    "specification": "file:spec.md",
+    "properties": {
+        "NonZeroFeeAfterGracePeriod": "After the grace period ends, the flashloan fee must be positive."
+        "ZeroFeeBeforeGracePeriod": "Before the grace period ends, the flashloan fee must be zero."
+    }
+}
