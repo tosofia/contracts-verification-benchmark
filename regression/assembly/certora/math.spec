@@ -12,5 +12,5 @@ rule math {
     uint256 r = mul_wrap(e, x, y);
     
 
-    assert(r == 400000000000000000);
+    assert(r == 1);
 }
