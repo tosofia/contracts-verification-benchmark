@@ -1,0 +1,6 @@
+property,version,truth,footnote-md
+positive-fee-after-grace,v1,1,
+zero-fee-during-grace,v1,0,
+after-grace-fee-received,v1,1
+shares-eq-assets,v1,0
+shares-leq-assets,v1,1

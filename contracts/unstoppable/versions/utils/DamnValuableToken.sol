@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Damn Vulnerable DeFi v4 (https://damnvulnerabledefi.xyz)
-pragma solidity =0.8.25;
+pragma solidity ^0.8.25;
 
-import {ERC20} from "solmate/tokens/ERC20.sol";
+import {ERC20} from "../lib/ERC20.sol";
 
 contract DamnValuableToken is ERC20 {
     constructor() ERC20("DamnValuableToken", "DVT", 18) {
