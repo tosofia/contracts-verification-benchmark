@@ -61,8 +61,7 @@ contract UnstoppableVault is IERC3156FlashLender, ReentrancyGuard, Owned, ERC462
         if (block.timestamp < end && _amount < maxFlashLoan(_token)) {
             return 0;
         } else {
-            //return _amount.mulWadUp(FEE_FACTOR);
-            return _amount/100;
+            return _amount.mulWadUp(FEE_FACTOR);
         }
     }
 
@@ -86,8 +85,7 @@ contract UnstoppableVault is IERC3156FlashLender, ReentrancyGuard, Owned, ERC462
         if (convertToShares(totalSupply) != balanceBefore) revert InvalidBalance(); // enforce ERC4626 requirement
 
         // transfer tokens out + execute callback on receiver
-        //ERC20(_token).safeTransfer(address(receiver), amount);
-        ERC20(_token).transfer(address(receiver), amount);
+        ERC20(_token).safeTransfer(address(receiver), amount);
 
         // callback must return magic value, otherwise assume it failed
         uint256 fee = flashFee(_token, amount);
@@ -99,10 +97,8 @@ contract UnstoppableVault is IERC3156FlashLender, ReentrancyGuard, Owned, ERC462
         }
 
         // pull amount + fee from receiver, then pay the fee to the recipient
-        //ERC20(_token).safeTransferFrom(address(receiver), address(this), amount + fee);
-        //ERC20(_token).safeTransfer(feeRecipient, fee);
-        ERC20(_token).transferFrom(address(receiver), address(this), amount + fee);
-        ERC20(_token).transfer(feeRecipient, fee);
+        ERC20(_token).safeTransferFrom(address(receiver), address(this), amount + fee);
+        ERC20(_token).safeTransfer(feeRecipient, fee);
 
         return true;
     }
