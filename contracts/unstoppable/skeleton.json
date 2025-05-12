@@ -1,0 +1,11 @@
+{
+    "name": "UnstoppableVault",
+    "specification": "file:spec.md",
+    "properties": {
+        "positive-fee-after-grace": "After the grace period ends, the flashloan fee must be positive.",
+        "zero-fee-during-grace": "Before the grace period ends, the flashloan fee is zero.",
+        "fee-received-after-grace": "After the grace period ends, feeRecipient receives the fee.",
+        "shares-eq-assets": "The total shares is equal to the total assets.",
+        "shares-leq-assets": "The total shares is less equal than the total assets."
+    }
+}
