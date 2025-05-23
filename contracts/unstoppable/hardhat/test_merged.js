@@ -40,6 +40,10 @@ describe("Merged Unstoppable", function () {
     expect(
       await vault.connect(deployer).checkFlashLoan(flashloanAmount)
     ).to.emit(vault, "FlashLoanStatus").withArgs(true);
+
+    console.log(await vault.maxDeposit(vault.target));
+
+    
     
 
   })

@@ -22,7 +22,9 @@
 
       "only-vault-can-initiate-flashloan": "`onFlashLoan` and `flashloan` functions must revert if the initiator is not the vault contract itself.",
 
-      "shares-eq-assets": "At all times, the total supply of shares equals the total assets managed by the vault."
+      "shares-eq-assets": "At all times, the total supply of shares equals the total assets managed by the vault.",
+
+      "deposit-withdraw-consistency": "Vault balance after a consecutive `deposit` and `withdraw` of the same amount of assets, remains unchanged except for the fees."
     }
 }
 
