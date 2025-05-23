@@ -1,16 +1,27 @@
 {
     "name": "UnstoppableVault",
+
     "specification": "file:spec.md",
+
     "properties": {
-      "reverts-direct-transfer": "Direct transfers of the underlying asset to the vault (ERC20.transfer()) cause the checkFlashloan function to revert every time",
-      "manage-direct-transfer": "Direct transfers of the underlying asset to the vault (ERC20.transfer()) do not disrupt the vault's accounting, ensuring that totalAssets() remains consistent with convertToShares(totalSupply).",
-      "reverts-on-asset-mismatch": "The flashLoan function reverts if the requested token does not match the vault's underlying asset.",
-      "reverts-on-zero-amount": "The flashLoan function reverts when the amount is zero.",
+      "owner-check-flashloan": "If the owner call `checkFlashloan` with `amount <= vault.maxFlashloan && amount != 0` the call not revert.",
+
+      "reverts-direct-transfer": "Direct transfers of the underlying asset to the vault with `ERC20.transfer()` cause the checkFlashloan function to revert every time",
+
+      "accounting-consistency": "`totalAssets()` remains consistent with `convertToShares(totalSupply)`.",
+
+      "reverts-on-asset-mismatch": "The `flashLoan` function reverts if the requested token does not match the vault's underlying asset.",
+
       "fee-to-recipient": "After a flashloan, the calculated fee is successfully transferred to the designated feeRecipient.",
+
       "correct-fee-calculation": "The flashFee function accurately calculates the fee based on the flashloan amount and current fee factor.",
+
       "grace-period-fee": "During the grace period, flash loans are issued without fees; after the grace period, fees are applied.",
+
       "max-flashloan-eq-total-assets": "The maxFlashLoan function returns a value equal to the vault's totalAssets().",
+
       "only-vault-can-initiate-flashloan": "`onFlashLoan` and `flashloan` functions must revert if the initiator is not the vault contract itself.",
+
       "shares-eq-assets": "At all times, the total supply of shares equals the total assets managed by the vault."
     }
 }

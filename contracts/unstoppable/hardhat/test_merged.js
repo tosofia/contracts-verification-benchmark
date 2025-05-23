@@ -29,6 +29,7 @@ describe("Merged Unstoppable", function () {
 
     await dvt.connect(user).approve(vault.target, depositAmount);
     await vault.connect(user).deposit(depositAmount, vault.target);
+    
 
     expect(
       await vault.connect(deployer).checkFlashLoan(flashloanAmount)
@@ -38,9 +39,9 @@ describe("Merged Unstoppable", function () {
 
     expect(
       await vault.connect(deployer).checkFlashLoan(flashloanAmount)
-    ).to.be.revertedWithCustomError(vault, "InvalidBalance");
+    ).to.emit(vault, "FlashLoanStatus").withArgs(true);
+    
 
-    //console.log(await vault.owner());
   })
 
 });

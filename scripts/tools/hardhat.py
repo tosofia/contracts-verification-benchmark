@@ -48,7 +48,7 @@ def copy_files(src_dir, dest_dir, file_extension):
         if filename.endswith(file_extension):
             src_file = os.path.join(src_dir, filename)
             dest_file = os.path.join(dest_dir, filename)
-            print(f"Copying {src_file} to {dest_file}...")
+            #print(f"Copying {src_file} to {dest_file}...")
             shutil.copy(src_file, dest_file)
 
 def clear_copied_files():
@@ -56,7 +56,7 @@ def clear_copied_files():
         for filename in os.listdir(dir_to_clear):
             file_path = os.path.join(dir_to_clear, filename)
             if os.path.isfile(file_path):
-                print(f"Removing {file_path}...")
+                #print(f"Removing {file_path}...")
                 os.remove(file_path)
             elif os.path.isdir(file_path):
                 shutil.rmtree(file_path)

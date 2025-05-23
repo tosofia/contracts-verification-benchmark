@@ -14,7 +14,7 @@
       const vault = await UnstoppableVault.deploy(dvt.target, deployer.address, feeRecipient.address);
 
       const FlashBorrower = await ethers.getContractFactory("UnstoppableMonitor");
-      const borrower = await FlashBorrower.connect(deployer).deploy(vault.target);
+      const borrower = await FlashBorrower.connect(user).deploy(vault.target);
 
       await vault.connect(deployer).transferOwnership(borrower);
 
@@ -24,7 +24,7 @@
     it("unstoppable-vault: After a transaction with ERC20.trasfer to the vault, the vault stops", async function(){
       const { deployer, dvt, feeRecipient, vault, borrower, user} = await loadFixture(deployContract);
 
-      const depositAmount = 5, userBalance = 10, flashloanAmount = 1;
+      const depositAmount = 5, userBalance = 10, flashloanAmount = 1, test = 2;
 
       await dvt.connect(deployer).transfer(user.address, userBalance);
 
@@ -42,5 +42,4 @@
       ).to.emit(borrower, "FlashLoanStatus").withArgs(false);
       
     })
-
-  });
+});

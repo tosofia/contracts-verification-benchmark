@@ -2,12 +2,12 @@
 // Damn Vulnerable DeFi v4 (https://damnvulnerabledefi.xyz)
 pragma solidity ^0.8.25;
 
-import {ReentrancyGuard} from "./ReentrancyGuard.sol";
-import {FixedPointMathLib} from "./FixedPointMathLib.sol";
-import {Owned} from "./Owned.sol";
-import {SafeTransferLib, ERC4626, ERC20} from "./ERC4626_v2.sol";
-import {Pausable} from "./Pausable.sol";
-import {IERC3156FlashBorrower, IERC3156FlashLender} from "./IERC3156.sol";
+import {ReentrancyGuard} from "./lib/ReentrancyGuard.sol";
+import {FixedPointMathLib} from "./lib/FixedPointMathLib.sol";
+import {Owned} from "./lib/Owned.sol";
+import {SafeTransferLib, ERC4626, ERC20} from "./lib/ERC4626v1.sol";
+import {Pausable} from "./lib/Pausable.sol";
+import {IERC3156FlashBorrower, IERC3156FlashLender} from "./lib/IERC3156.sol";
 
 /**
  * An ERC4626-compliant tokenized vault offering flashloans for a fee.
@@ -75,10 +75,10 @@ contract MergedUnstoppableVault is IERC3156FlashLender, IERC3156FlashBorrower, R
     /**
      * @inheritdoc ERC4626
      */
-    function totalAssets() public view override nonReadReentrant returns (uint256) { 
-        return (totalInflow - totalOutflow);
+    function totalAssets() public view override nonReadReentrant returns (uint256) {
+        return asset.balanceOf(address(this));
     }
-    
+
     /**
      * @inheritdoc IERC3156FlashLender
      */
@@ -156,8 +156,8 @@ contract MergedUnstoppableVault is IERC3156FlashLender, IERC3156FlashBorrower, R
     }
 
     function checkFlashLoan(uint256 amount) external onlyOwner{
+        require(amount > 0);
 
-        //this.flashLoan(this, address(asset), amount, bytes(""));
         try this.flashLoan(this, address(asset), amount, bytes("")) {
             emit FlashLoanStatus(true);
         } catch {
