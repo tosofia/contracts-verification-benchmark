@@ -1,6 +1,6 @@
 # Params
 solver = z3
-to = 1m
+to = 10m
 contract = ""
 version = ""
 property = ""
