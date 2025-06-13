@@ -1,0 +1,12 @@
+property,version,truth,footnote-md
+total-supply-integrity,v1,0,""
+validate-transfer-diff-o-s-r,v1,0,""
+validate-transfer-same-o-s-r,v1,0,""
+validate-transfer-same-s-r,v1,0,""
+validate-transfer-same-o-s,v1,0,""
+validate-transfer-same-o-r,v1,0,""
+user-cannot-exclude-include-from-fee,v1,1,
+owner-can-exclude-include-from-fee,v1,1,
+ownership-cannot-change,v1,1,
+owner-fee-after-transfer,v1,0,""
+liquidity,v1,1,""
