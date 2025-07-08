@@ -1,0 +1,1 @@
+solc test.sol --model-checker-engine chc --model-checker-timeout 10000000 --model-checker-targets assert --model-checker-show-unproved --model-checker-solvers=z3 --model-checker-ext-calls=trusted

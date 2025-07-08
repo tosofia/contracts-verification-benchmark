@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-/// @custom:version the deflationary property is not well implemented, when we make a transfer with less than 10 tokens, no fees are charged.
+/// @custom:version the transfer amount and fees are wrongly managed, the fees are not deducted from the sender but at the same time the owner receives the right fee amount (token duplication).
 contract SimplifiedDeflationaryToken {
     mapping(address => uint256) public balances;
     mapping(address => bool) public isExcludedFromFee;
@@ -25,11 +25,12 @@ contract SimplifiedDeflationaryToken {
         uint256 fee = 0;
         if (!isExcludedFromFee[msg.sender]) {
             fee = calculateFee(amount);
+            amount = amount - fee; 
             balances[owner] += fee;
         }
 
         balances[msg.sender] -= amount;
-        balances[to] += (amount - fee);
+        balances[to] += amount;
 
         emit Transfer(msg.sender, to, amount);
 
@@ -53,4 +54,19 @@ contract SimplifiedDeflationaryToken {
     function balanceOf(address account) public view returns (uint256) {
         return balances[account];
     }
+    function validateTransferDiffSR(address receiver, uint256 amount) public {
+   require(owner != msg.sender && msg.sender != receiver && owner != receiver);
+   uint256 oldSenderBalance = balances[msg.sender];
+   uint256 oldReceiverBalance = balances[receiver];
+   uint256 oldOwnerBalance = balances[owner];
+   uint256 expectedFee = isExcludedFromFee[msg.sender] ? 0 : calculateFee(amount);
+   require(oldOwnerBalance + oldReceiverBalance + oldSenderBalance <= totalSupply);
+   transfer(receiver, amount);
+   assert(balances[msg.sender] == oldSenderBalance - amount);
+   assert(balances[receiver] == oldReceiverBalance + amount - expectedFee);
+   assert(balances[owner] == oldOwnerBalance + expectedFee);
+
+}
+
+
 }

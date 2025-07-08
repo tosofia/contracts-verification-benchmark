@@ -1,5 +1,5 @@
 function balancesSum(address receiver) public view returns (uint256) {
-   uint256 balancesSum;
+   uint256 balanceSums;
    uint256 ownerBalance = 0;
    uint256 receiverBalance = 0;
 
@@ -9,8 +9,8 @@ function balancesSum(address receiver) public view returns (uint256) {
    if(msg.sender != receiver && owner != receiver) {
        receiverBalance = balanceOf(receiver);
    }
-   balancesSum = balanceOf(msg.sender) + ownerBalance + receiverBalance;
-   return balancesSum;
+   balanceSums = balanceOf(msg.sender) + ownerBalance + receiverBalance;
+   return balanceSums;
 }
 
 function totalSupplyIntegrity(address user, address receiver, uint256 amount) public {
