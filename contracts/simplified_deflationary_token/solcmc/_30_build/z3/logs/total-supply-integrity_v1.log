@@ -1,0 +1,12 @@
+Warning: CHC: Assertion violation might happen here.
+  --> build/contracts/SimplifiedDeflationaryToken_total-supply-integrity_v1.sol:78:8:
+   |
+78 |        assert(balanceOf(user) == oldUserBalance);
+   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning: CHC: Assertion violation might happen here.
+  --> build/contracts/SimplifiedDeflationaryToken_total-supply-integrity_v1.sol:79:8:
+   |
+79 |        assert(balancesSum(receiver) == oldSumBalances);
+   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+

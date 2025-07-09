@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-/// @custom:version the transfer amount and fees are wrongly managed, the fees are not deducted from the sender but at the same time the owner receives the right fee amount (token duplication).
+/// @custom:version conforming to specification.
 contract SimplifiedDeflationaryToken {
     mapping(address => uint256) public balances;
     mapping(address => bool) public isExcludedFromFee;
@@ -21,16 +21,16 @@ contract SimplifiedDeflationaryToken {
 
     function transfer(address to, uint256 amount) public returns (bool) {
         require(balances[msg.sender] >= amount, "Insufficient balance");
+        require(amount > 0, "Cannot send 0 Token");
 
         uint256 fee = 0;
         if (!isExcludedFromFee[msg.sender]) {
             fee = calculateFee(amount);
-            amount = amount - fee; 
             balances[owner] += fee;
         }
 
         balances[msg.sender] -= amount;
-        balances[to] += amount;
+        balances[to] += (amount - fee);
 
         emit Transfer(msg.sender, to, amount);
 
@@ -38,7 +38,8 @@ contract SimplifiedDeflationaryToken {
     }
 
     function calculateFee(uint256 amount) public view returns (uint256) {
-        return (amount * transactionFeePercent) / 100;
+        uint256 fee = (amount * transactionFeePercent) / 100;
+        return fee == 0 ? 1 : fee;
     }
 
     function excludeFromFee(address account) public {
@@ -54,18 +55,14 @@ contract SimplifiedDeflationaryToken {
     function balanceOf(address account) public view returns (uint256) {
         return balances[account];
     }
-    function validateTransferSameOSR(address receiver, uint256 amount) public {
-    require(owner == msg.sender && msg.sender == receiver);
-    uint256 oldSenderBalance = balances[msg.sender];
-    uint256 oldReceiverBalance = balances[receiver];
-    uint256 oldOwnerBalance = balances[owner];
-
-    require(oldOwnerBalance + oldReceiverBalance + oldSenderBalance <= totalSupply);
-    transfer(receiver, amount);
-    assert(balances[msg.sender] == oldSenderBalance);
-    assert(balances[receiver] == oldReceiverBalance);
-    assert(balances[owner] == oldOwnerBalance);
-}
-
+    function userCannotExcludeIncludeFromFee(address user) public {
+       require(owner != msg.sender);
+       require(isExcludedFromFee[user] == false);
+       excludeFromFee(user);
+       assert(isExcludedFromFee[user] == false);
+       require(isExcludedFromFee[msg.sender] == true);
+       includeInFee(msg.sender);
+       assert(isExcludedFromFee[msg.sender] == true);
+    }
 
 }

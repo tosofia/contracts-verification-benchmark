@@ -1,0 +1,6 @@
+Warning: CHC: Assertion violation happens here.
+  --> build/contracts/SimplifiedDeflationaryToken_owner-fee-after-transfer_v1.sol:61:8:
+   |
+61 |        assert(fee > 0);
+   |        ^^^^^^^^^^^^^^^
+

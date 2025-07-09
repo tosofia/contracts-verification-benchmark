@@ -1,0 +1,26 @@
+Warning: CHC: Error during interaction with the solver.
+  --> build/contracts/SimplifiedDeflationaryToken_validate-transfer-same-s-r_v1.sol:66:8:
+   |
+66 |        assert(balances[msg.sender] == oldSenderBalance - expectedFee);
+   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning: CHC: Error during interaction with the solver.
+  --> build/contracts/SimplifiedDeflationaryToken_validate-transfer-same-s-r_v1.sol:67:8:
+   |
+67 |        assert(balances[receiver] == oldReceiverBalance - expectedFee);
+   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning: CHC: Assertion violation might happen here.
+  --> build/contracts/SimplifiedDeflationaryToken_validate-transfer-same-s-r_v1.sol:66:8:
+   |
+66 |        assert(balances[msg.sender] == oldSenderBalance - expectedFee);
+   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning: CHC: Assertion violation might happen here.
+  --> build/contracts/SimplifiedDeflationaryToken_validate-transfer-same-s-r_v1.sol:67:8:
+   |
+67 |        assert(balances[receiver] == oldReceiverBalance - expectedFee);
+   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Info: CHC: 1 verification condition(s) proved safe! Enable the model checker option "show proved safe" to see all of them.
+

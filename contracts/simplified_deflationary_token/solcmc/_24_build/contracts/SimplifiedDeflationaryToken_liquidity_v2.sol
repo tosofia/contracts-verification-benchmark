@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-/// @custom:version the transfer amount and fees are wrongly managed, the fees are not deducted from the sender but at the same time the owner receives the right fee amount (token duplication).
+/// @custom:version the deflationary property is not well implemented, when we make a transfer with less than 10 tokens, no fees are charged.
 contract SimplifiedDeflationaryToken {
     mapping(address => uint256) public balances;
     mapping(address => bool) public isExcludedFromFee;
@@ -25,12 +25,11 @@ contract SimplifiedDeflationaryToken {
         uint256 fee = 0;
         if (!isExcludedFromFee[msg.sender]) {
             fee = calculateFee(amount);
-            amount = amount - fee; 
             balances[owner] += fee;
         }
 
         balances[msg.sender] -= amount;
-        balances[to] += amount;
+        balances[to] += (amount - fee);
 
         emit Transfer(msg.sender, to, amount);
 
@@ -54,18 +53,26 @@ contract SimplifiedDeflationaryToken {
     function balanceOf(address account) public view returns (uint256) {
         return balances[account];
     }
-    function validateTransferSameOSR(address receiver, uint256 amount) public {
-    require(owner == msg.sender && msg.sender == receiver);
-    uint256 oldSenderBalance = balances[msg.sender];
-    uint256 oldReceiverBalance = balances[receiver];
-    uint256 oldOwnerBalance = balances[owner];
-
-    require(oldOwnerBalance + oldReceiverBalance + oldSenderBalance <= totalSupply);
-    transfer(receiver, amount);
-    assert(balances[msg.sender] == oldSenderBalance);
-    assert(balances[receiver] == oldReceiverBalance);
-    assert(balances[owner] == oldOwnerBalance);
-}
-
+    function liquidity(address receiver, uint256 amount) public {
+        require(balancesSum(receiver) <= totalSupply);
+        require(amount <= balanceOf(msg.sender) && amount > 0);
+        bool isMoneyTransferred = transfer(receiver, amount);
+        assert(isMoneyTransferred);
+    }
+    
+    function balancesSum(address receiver) public view returns (uint256) {
+        uint256 balanceSums;
+        uint256 ownerBalance = 0;
+        uint256 receiverBalance = 0;
+    
+        if(msg.sender != owner) {
+            ownerBalance = balanceOf(owner);
+        }
+        if(msg.sender != receiver && owner != receiver) {
+            receiverBalance = balanceOf(receiver);
+        }
+        balanceSums = balanceOf(msg.sender) + ownerBalance + receiverBalance;
+        return balanceSums;
+    }
 
 }

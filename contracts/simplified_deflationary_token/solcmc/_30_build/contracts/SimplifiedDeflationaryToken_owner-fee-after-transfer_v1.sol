@@ -54,18 +54,11 @@ contract SimplifiedDeflationaryToken {
     function balanceOf(address account) public view returns (uint256) {
         return balances[account];
     }
-    function validateTransferSameOSR(address receiver, uint256 amount) public {
-    require(owner == msg.sender && msg.sender == receiver);
-    uint256 oldSenderBalance = balances[msg.sender];
-    uint256 oldReceiverBalance = balances[receiver];
-    uint256 oldOwnerBalance = balances[owner];
-
-    require(oldOwnerBalance + oldReceiverBalance + oldSenderBalance <= totalSupply);
-    transfer(receiver, amount);
-    assert(balances[msg.sender] == oldSenderBalance);
-    assert(balances[receiver] == oldReceiverBalance);
-    assert(balances[owner] == oldOwnerBalance);
-}
-
+    function ownerFeeAfterTransfer(uint256 amount) public view {
+       require(amount > 0);
+       require(isExcludedFromFee[msg.sender] == false);
+       uint256 fee = calculateFee(amount);
+       assert(fee > 0);
+    }
 
 }

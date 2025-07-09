@@ -1,6 +1,6 @@
 # Params
 solver = z3
-to = 2m
+to = 10m
 contract = ""
 
 # Input files

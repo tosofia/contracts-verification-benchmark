@@ -1,0 +1,14 @@
+Warning: CHC: Assertion violation might happen here.
+  --> build/contracts/SimplifiedDeflationaryToken_validate-transfer-same-o-s_v2.sol:65:8:
+   |
+65 |        assert(balances[msg.sender] == oldSenderBalance - amount + expectedFee);
+   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning: CHC: Assertion violation might happen here.
+  --> build/contracts/SimplifiedDeflationaryToken_validate-transfer-same-o-s_v2.sol:66:8:
+   |
+66 |        assert(balances[receiver] == oldReceiverBalance + amount - expectedFee);
+   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Info: CHC: 1 verification condition(s) proved safe! Enable the model checker option "show proved safe" to see all of them.
+

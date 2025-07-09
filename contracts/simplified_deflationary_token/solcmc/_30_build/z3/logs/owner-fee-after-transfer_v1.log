@@ -1,0 +1,18 @@
+Warning: CHC: Assertion violation happens here.
+Counterexample:
+totalSupply = 1000000000000000000000000, transactionFeePercent = 10, owner = 0x0
+amount = 1
+fee = 0
+
+Transaction trace:
+SimplifiedDeflationaryToken.constructor(){ msg.sender: 0x0 }
+State: totalSupply = 1000000000000000000000000, transactionFeePercent = 10, owner = 0x0
+SimplifiedDeflationaryToken.balanceOf(0xffffffffffffffffffffffffffffffffffffac6e)
+State: totalSupply = 1000000000000000000000000, transactionFeePercent = 10, owner = 0x0
+SimplifiedDeflationaryToken.ownerFeeAfterTransfer(1){ msg.sender: 0x01 }
+    SimplifiedDeflationaryToken.calculateFee(1) -- internal call
+  --> build/contracts/SimplifiedDeflationaryToken_owner-fee-after-transfer_v1.sol:61:8:
+   |
+61 |        assert(fee > 0);
+   |        ^^^^^^^^^^^^^^^
+
